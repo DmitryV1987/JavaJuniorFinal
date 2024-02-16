@@ -45,6 +45,8 @@
 
 В класс Message добавим новое поле type:
 
+```java
+
 public class Message {
 
   private String type;
@@ -55,16 +57,16 @@ public class Message {
   // ...
 
 }
-
+```
 Введем константы для типов сообщений:
-
+```java
 public static final String MESSAGE_TYPE_PUBLIC = "PUBLIC";
 public static final String MESSAGE_TYPE_PRIVATE = "PRIVATE";
-
+```
 2. Изменение сервера:
 
     Добавим обработку сообщений типа PRIVATE_MESSAGE:
-
+```java
 if (message.getType().equals(MESSAGE_TYPE_PRIVATE)) {
   // Проверить, что получатель онлайн
   if (clients.containsKey(message.getReceiverId())) {
@@ -72,11 +74,11 @@ if (message.getType().equals(MESSAGE_TYPE_PRIVATE)) {
     clients.get(message.getReceiverId()).println(message);
   }
 }
-
+```
 3. Изменение клиента:
 
     Добавим возможность отправлять личные сообщения:
-
+```java
 System.out.println("Введите текст сообщения:");
 String text = System.console().readLine();
 
@@ -87,9 +89,9 @@ message.setReceiverId(receiverId);
 message.setText(text);
 
 out.println(message);
-
+```
     Добавим отображение личных сообщений:
-
+```java
 while (true) {
   String messageJson = in.nextLine();
   Message message = Message.fromJson(messageJson);
@@ -100,6 +102,7 @@ while (true) {
     // Отобразить личное сообщение
   }
 }
+```
 
 Для сериализации/десериализации JSON можно использовать библиотеку Jackson: https://github.com/FasterXML/jackson.
 
